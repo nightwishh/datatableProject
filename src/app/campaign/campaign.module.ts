@@ -7,16 +7,21 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { DropdownModule } from 'primeng/dropdown';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [CampaignComponent],
   imports: [
     CommonModule,
     TableModule,
+    FormsModule,
     ButtonModule,
     InputTextModule,
     TriStateCheckboxModule,
     DropdownModule,
+    MultiSelectModule,
     BrowserAnimationsModule,
   ],
 })

@@ -27,11 +27,14 @@
     }
   }
 
-  .p-datatable.p-datatable-customers {
+  .p-datatable.p-datatable-campaigns {
     .p-datatable-header {
       padding: 1rem;
       text-align: left;
-      font-size: 1.5rem;
+      font-size: 1rem;
+      padding-left: 0px;
+      padding-right: 0px;
+      padding-bottom: 0px;
     }
 
     .p-paginator {
@@ -96,9 +99,13 @@
   }
 }
 
+::ng-deep .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
 .campaign-badge {
   border-radius: 2px;
-  padding: 0.25em 0.5rem;
+  padding: 0.25em 1rem;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 12px;
@@ -124,4 +131,73 @@
 .campaign-badge.status-lifetime {
   background-color: #eccfff;
   color: #694382;
+}
+
+.p-button {
+  background-color: white;
+  color: var(--green-color);
+}
+::ng-deep .p-button .p-button-label {
+  color: var(--neutral-color);
+}
+::ng-deep .pi.pi-search {
+  color: var(--green-color) !important;
+}
+::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: var(--green-color);
+  background: var(--green-color);
+}
+::ng-deep
+  .p-checkbox:not(.p-checkbox-disabled)
+  .p-checkbox-box.p-highlight:hover {
+  border-color: var(--green-color);
+  background: var(--green-color);
+}
+
+.dashboardHeader {
+  display: flex;
+  align-items: center;
+  padding: 0px var(--base-padding);
+  gap: 15px;
+}
+.dashboardHeader > * {
+  width: 50%;
+}
+.dashboardHeader > .rightPanel {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+.dashboardHeader > button {
+  height: 40px;
+}
+.dashboardHeader .p-inputtext {
+  height: 40px;
+}
+.recordDetails {
+  display: flex;
+  height: 60px;
+  background-color: white;
+  align-items: center;
+  padding: 0px var(--base-padding);
+  margin: 0;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #d6d6d6;
+  font-weight: lighter;
+  color: var(--neutral-color-light);
+}
+
+::ng-deep .p-paginator .p-paginator-first,
+::ng-deep .p-paginator .p-paginator-prev,
+::ng-deep .p-paginator .p-paginator-next,
+::ng-deep .p-paginator .p-paginator-last {
+  border: 1px solid #d6d6d6;
+  color: var(--green-color);
+  margin: 0;
+}
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--green-color);
+  color: white;
+  margin: 0;
 }

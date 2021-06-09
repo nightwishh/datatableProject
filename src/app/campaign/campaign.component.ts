@@ -19,6 +19,9 @@ export class CampaignComponent implements OnInit {
   statuses: any[];
   budgetTypes: any[];
   selectedCampaigns: Campaign[] = [];
+  cols: any[];
+  _selectedColumns: any[];
+
   ngOnInit(): void {
     this.statuses = [
       { label: 'ACTIVE', value: 'ACTIVE' },
@@ -33,6 +36,16 @@ export class CampaignComponent implements OnInit {
       },
       { label: 'LIFETIME', value: 'LIFETIME' },
     ];
+    this.cols = [
+      { field: 'name', header: 'Campaign Name' },
+      { field: 'start_time', header: 'Start Date' },
+      { field: 'stop_time', header: 'End Date' },
+      { field: 'campaign_lead', header: 'Campaign Lead' },
+      { field: 'last_changed_by', header: 'Last Changed By' },
+      { field: 'status', header: 'Status' },
+      { field: 'budget_type', header: 'Ad Set Budget Type' },
+    ];
+    this.selectedColumns = this.cols;
   }
 
   loadCampaigns(event: LazyLoadEvent) {
@@ -58,5 +71,20 @@ export class CampaignComponent implements OnInit {
   }
   clear(table: Table) {
     table.clear();
+  }
+
+  get selectedColumns(): any[] {
+    return this._selectedColumns;
+  }
+
+  set selectedColumns(val: any[]) {
+    //restore original order
+    this._selectedColumns = this.cols.filter((col) => val.includes(col));
+  }
+
+  columnVisible(fieldName: string) {
+    if (this.selectedColumns.findIndex((x) => x.field == fieldName) > -1)
+      return true;
+    return false;
   }
 }
