@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [CampaignComponent],
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     TriStateCheckboxModule,
     DropdownModule,
     MultiSelectModule,
+    CheckboxModule,
     BrowserAnimationsModule,
   ],
 })

@@ -1,5 +1,6 @@
-<p-table #dt1 [value]="campaigns" [columns]="selectedColumns" [(selection)]="selectedCampaigns" dataKey="id" [rows]="10"
-    dataKey="id" [rowHover]="true" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [lazy]="true"
+<p-table #dt1 [value]="campaigns" (onFilter)="onFilter()" (onSort)="onSort()" (onPage)="onPage($event)"
+    [columns]="selectedColumns" [(selection)]="selectedCampaigns" dataKey="id" [rows]="10" dataKey="id"
+    [rowHover]="true" [showCurrentPageReport]="true" [rowsPerPageOptions]="[3, 5, 10,25,50]" [lazy]="true"
     (onLazyLoad)="loadCampaigns($event)" [loading]="loading" styleClass="p-datatable-campaigns p-datatable-gridlines"
     [paginator]="true" [globalFilterFields]="['name','status','start_time','end_time']">
     <ng-template pTemplate="caption">
@@ -15,8 +16,8 @@
 
                     <span class="p-input-icon-left p-ml-auto">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                            placeholder="Search keyword" />
+                        <input pInputText type="text" (change)="onSearchChange($event.target.value)"
+                            (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
                     </span>
                 </div>
 
@@ -30,7 +31,7 @@
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 3rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                <p-tableHeaderCheckbox (click)="onCheckboxChange()"></p-tableHeaderCheckbox>
             </th>
             <th pSortableColumn="name" *ngIf="columnVisible('name')" [width]="350">
                 <div class="p-d-flex p-jc-between p-ai-center">
@@ -98,7 +99,7 @@
     <ng-template pTemplate="body" let-campaign>
         <tr>
             <td>
-                <p-tableCheckbox [value]="campaign"></p-tableCheckbox>
+                <p-tableCheckbox [value]="campaign" (click)="onCheckboxChange()"></p-tableCheckbox>
             </td>
             <td *ngIf="columnVisible('name')">
                 {{campaign.name}}

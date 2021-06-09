@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FilterMetadata, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Campaign } from '../models/campaign';
 import { CampaignService } from './campaign.service';
@@ -18,10 +18,16 @@ export class CampaignComponent implements OnInit {
   loading: boolean = true;
   statuses: any[];
   budgetTypes: any[];
+
+  // you need these variables
   selectedCampaigns: Campaign[] = [];
+  activeFilters: any[] = [];
+  activeSorts: any[] = [];
+  pageObject: any[] = [];
+
   cols: any[];
   _selectedColumns: any[];
-
+  @ViewChild('dt1', { static: true }) dataTable: Table;
   ngOnInit(): void {
     this.statuses = [
       { label: 'ACTIVE', value: 'ACTIVE' },
@@ -47,7 +53,34 @@ export class CampaignComponent implements OnInit {
     ];
     this.selectedColumns = this.cols;
   }
-
+  onFilter() {
+    var filters: Object = this.dataTable.filters;
+    this.activeFilters = [];
+    var props = Object.getOwnPropertyNames(filters);
+    props.forEach((x) => {
+      var filt = filters[x] as Object[];
+      if (x != 'global' && filt[0]['value'] != null) {
+        this.activeFilters.push(filt);
+      }
+    });
+    if (this.activeFilters.length == 0) return;
+    console.log('Filters Array:');
+    console.log(this.activeFilters);
+  }
+  onSort() {
+    this.activeSorts = [];
+    var sortField = this.dataTable.sortField;
+    var sortOrder = this.dataTable.sortOrder == 1 ? 'asc' : 'desc';
+    this.activeSorts.push({ field: sortField, order: sortOrder });
+    console.log(this.activeSorts);
+  }
+  onSearchChange(value: string) {
+    console.log(value);
+  }
+  onPage(event) {
+    this.pageObject = event;
+    console.log(event);
+  }
   loadCampaigns(event: LazyLoadEvent) {
     this.loading = true;
     setTimeout(() => {
@@ -86,5 +119,9 @@ export class CampaignComponent implements OnInit {
     if (this.selectedColumns.findIndex((x) => x.field == fieldName) > -1)
       return true;
     return false;
+  }
+  onCheckboxChange() {
+    console.log('Selected Campaigns:');
+    console.log(this.selectedCampaigns);
   }
 }
